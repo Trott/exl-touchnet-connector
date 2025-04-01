@@ -56,7 +56,13 @@ app.get('/touchnet', async (request, response) => {
     const resp = await get(request.query, returnUrl, referrer);
     response.send(resp);
   } catch (e) {
-    return response.status(400).send(e.message);
+    const escapedMessage = e.message.replaceAll('&', '&amp;')
+                                     .replaceAll('"', '&quot;')
+                                     .replaceAll("'", '&#39;')
+                                     .replaceAll('<', '&lt;')
+                                     .replaceAll('>', '&gt;')
+                                     .replaceAll('`', '&grave;');
+    return response.status(400).send(escapedMessage);
   }
 })
 
