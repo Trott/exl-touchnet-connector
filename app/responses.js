@@ -1,3 +1,5 @@
+const process = require('process');
+
 const redirectForm = (ticket, user_id, upay_site_id, upay_site_url) => {
   return `
     <form method="post" action="${upay_site_url || process.env.UPAY_SITE_URL}" name="touchnet">
